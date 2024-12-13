@@ -4,17 +4,18 @@ import hmac
 import hashlib
 import requests
 
+
 from flask import Flask, request, jsonify
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
 
-BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-TRIBOPAY_WEBHOOK_SECRET = os.getenv("TRIBOPAY_WEBHOOK_SECRET")
+BOT_TOKEN = os.getenv("T7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")
+TRIBOPAY_WEBHOOK_SECRET = os.getenv("TRIBnjiy12589%jgnbep3@5g")
 GRUPO_VIP_ID = os.getenv("GRUPO_VIP_ID") #adicione essa linha
 
 logging.basicConfig(
@@ -23,7 +24,7 @@ logging.basicConfig(
 )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Bem-vindo ao bot VIP!")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Bem-vindo ao meu grupo VIP!")
 
 async def add_user_to_group(user_id): #função para adicionar user ao grupo.
     try:
@@ -31,6 +32,14 @@ async def add_user_to_group(user_id): #função para adicionar user ao grupo.
         logging.info(f"Usuário {user_id} adicionado ao grupo {GRUPO_VIP_ID}")
     except Exception as e:
         logging.error(f"Erro ao adicionar usuário ao grupo: {e}")
+
+async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)        
+
+async def handle_updates(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message:
+        await echo(update, context) # Chama a função echo para mensagens
+    # Adicione aqui outros tipos de tratamento, se necessário (edições, etc.)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -67,10 +76,31 @@ def webhook():
         return jsonify({'status': 'error'}), 400
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token(BOT_TOKEN).build()
+    application = ApplicationBuilder().token(os.environ.get("TE7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")).build()
+
+    start_handler = CommandHandler('start', start)
+    message_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo) # Filtra mensagens de texto que não são comandos
+    application.add_handler(start_handler)
+    application.add_handler(message_handler)
+
+    # Configuração do webhook:
+    PORT = int(os.environ.get("PORT", 5000))
+    application.run_webhook(listen="0.0.0.0",
+                            port=PORT,
+                            url_path=os.environ.get("T7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"),
+                            webhook_url="https://meu-bot-vip.onrender.com/" + os.environ.get("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"))
+
+    application.idle()
+
+
+
+
+
+
+#if __name__ == '__main__':
+    application = ApplicationBuilder().token(B7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw).build()
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
 
     # Inicia o bot em background
     application.run_polling(allowed_updates=Update.ALL_TYPES)
-    
