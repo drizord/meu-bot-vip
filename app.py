@@ -14,9 +14,9 @@ load_dotenv()
 
 app = Flask(__name__)
 
-BOT_TOKEN = os.getenv("T7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")
-TRIBOPAY_WEBHOOK_SECRET = os.getenv("TRIBnjiy12589%jgnbep3@5g")
-GRUPO_VIP_ID = os.getenv("GRUPO_VIP_ID") #adicione essa linha
+BOT_TOKEN = os.getenv("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")
+TRIBOPAY_WEBHOOK_SECRET = os.getenv("njiy12589%jgnbep3@5g")
+GRUPO_VIP_ID = os.getenv("-4659850721") #adicione essa linha
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -28,8 +28,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def add_user_to_group(user_id): #função para adicionar user ao grupo.
     try:
-        await application.bot.add_chat_member(chat_id=int(GRUPO_VIP_ID), user_id=user_id)
-        logging.info(f"Usuário {user_id} adicionado ao grupo {GRUPO_VIP_ID}")
+        await application.bot.add_chat_member(chat_id=int(-4659850721), user_id=user_id)
+        logging.info(f"Usuário {user_id} adicionado ao grupo {-4659850721}")
     except Exception as e:
         logging.error(f"Erro ao adicionar usuário ao grupo: {e}")
 
@@ -76,7 +76,7 @@ def webhook():
         return jsonify({'status': 'error'}), 400
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token(os.environ.get("TE7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")).build()
+    application = ApplicationBuilder().token(os.environ.get("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")).build()
 
     start_handler = CommandHandler('start', start)
     message_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo) # Filtra mensagens de texto que não são comandos
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     PORT = int(os.environ.get("PORT", 5000))
     application.run_webhook(listen="0.0.0.0",
                             port=PORT,
-                            url_path=os.environ.get("T7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"),
+                            url_path=os.environ.get("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"),
                             webhook_url="https://meu-bot-vip.onrender.com/" + os.environ.get("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"))
 
     application.idle()
