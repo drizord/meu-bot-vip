@@ -7,7 +7,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-TRIBOPAY_API_KEY = os.environ.get("utkuq42t65Gg1nkXGsn76o3DqqBNZaCk0C1cn9fhCUM7c3LYkKDARyLuL4vj")  # Obtém o token das variáveis de ambiente (Render)
+TRIBOPAY_API_KEY = os.environ.get("TRIBOPAY_API_KEY")  # Obtém o token das variáveis de ambiente (Render)
 TRIBOPAY_API_URL = "https://api.tribopay.com.br" # URL base da API
 
 def consultar_transacoes():
@@ -15,7 +15,7 @@ def consultar_transacoes():
       if TRIBOPAY_API_KEY is None:
           raise ValueError("A variável TRIBOPAY_API_KEY não está configurada.")
 
-      headers = {"Authorization": f"Bearer {utkuq42t65Gg1nkXGsn76o3DqqBNZaCk0C1cn9fhCUM7c3LYkKDARyLuL4vj}"} # Cabeçalho de autorização
+      headers = {"Authorization": f"Bearer {TRIBOPAY_API_KEY}"} # Cabeçalho de autorização
       params = {"status": "pago"} # Parâmetros de consulta (opcional)
       response = requests.get(TRIBOPAY_API_URL + "/transacoes", headers=headers, params=params) # Endpoint da API
 
