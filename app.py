@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 BOT_TOKEN = os.getenv("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw")
 TRIBOPAY_WEBHOOK_SECRET = os.getenv("njiy12589%jgnbep3@5g")
-GRUPO_VIP_ID = os.getenv("-4659850721") #adicione essa linha
+GRUPO_VIP_ID = os.getenv("GRUPO_VIP_ID") #adicione essa linha
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -28,8 +28,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def add_user_to_group(user_id): #função para adicionar user ao grupo.
     try:
-        await application.bot.add_chat_member(chat_id=int(-4659850721), user_id=user_id)
-        logging.info(f"Usuário {user_id} adicionado ao grupo {-4659850721}")
+        await application.bot.add_chat_member(chat_id=int(GRUPO_VIP_ID), user_id=user_id)
+        logging.info(f"Usuário {user_id} adicionado ao grupo {GRUPO_VIP_ID}")
     except Exception as e:
         logging.error(f"Erro ao adicionar usuário ao grupo: {e}")
 
@@ -91,16 +91,3 @@ if __name__ == '__main__':
                             webhook_url="https://meu-bot-vip.onrender.com/" + os.environ.get("7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw"))
 
     application.idle()
-
-
-
-
-
-
-#if __name__ == '__main__':
-    application = ApplicationBuilder().token(B7586099231:AAG-OKSBGYzr2WAqTXy1aRuM8oCeutmARPw).build()
-    start_handler = CommandHandler('start', start)
-    application.add_handler(start_handler)
-
-    # Inicia o bot em background
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
